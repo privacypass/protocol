@@ -4,7 +4,9 @@ The protocol that is implemented in Privacy Pass is built upon elliptic-curve cr
 
 The concept of a blind signature has been around since David Chaum introduced [RSA blinding](https://dl.acm.org/citation.cfm?doid=4372.4373) in 1985. Our system is conceptually similar to Chaum’s original idea: it lets someone with a private key digitally sign a message without knowing what it is, but rather than an RSA private key, an Elliptic Curve private key is used. The construction we use was developed independently, but bears resemblance to recent [EC-OPRF](https://eprint.iacr.org/2017/111) and [EC-VRF](https://tools.ietf.org/html/draft-goldbe-vrf-01) proposals. The Privacy Pass team developed this scheme with the help of experts in cryptography such as Dan Boneh.
 
-To make the design decisions behind the development of the Privacy Pass protocol clear, we detail a set of scenarios each with flaws. In each scenario we address a flaw of the previous construction and show how to avoid it. By Scenario 7 we have something very close to our scheme. In these scenarios there are two actors, the client and the server. 
+To make the design decisions behind the development of the Privacy Pass protocol clear, we detail a set of scenarios each with flaws. In each scenario we address a flaw of the previous construction and show how to avoid it. By Scenario 7 we have something very close to our scheme. In these scenarios there are two actors, the client and the server.
+
+Additionally, see the [full description](https://github.com/privacypass/challenge-bypass-extension/blob/master/PROTOCOL.md) for more details.
 
 ## Scenario 1
 
