@@ -67,7 +67,7 @@ Sending `sT` is what lets attackers hijack a redemption. Since the server can ca
 
 ## Scenario 4
 
-Instead of sending `t` and `sT` the client can send `t` and HMAC(sT, M) for a message M. When the server receives this, it calculates `T = Hash(t)`, then uses its secret value to compute `sT`. With `t` and `sT` it can generate the HMAC key and check the signature. If the signature matches, that means the client knew `sT`.
+Instead of sending `t` and `sT` the client can send `t` and `HMAC(sT, M)` for a message `M`. When the server receives this, it calculates `T = Hash(t)`, then uses its secret value to compute `sT`. With `t` and `sT` it can generate the HMAC key and check the signature. If the signature matches, that means the client knew `sT`.
 
 #### Issue
 	T = Hash(t) 
@@ -93,7 +93,7 @@ A DLEQ proves that two elliptic curve points are related by the same multiplicat
 
 ## Scenario 5
 
-The server picks a generator point G and publishes sG somewhere where every client knows it.
+The server picks a generator point `G` and publishes `sG` somewhere where every client knows it.
 
 #### Issue
 	T = Hash(t) 
@@ -133,7 +133,7 @@ Each DLEQ can be verified independently like in Scenario 4, the client is safe f
 This lets the client do multiple redemptions.
 
 #### Problem: Bandwidth
-DLEQ proofs are not particularly compact. Luckily, they can be optimized with something called an efficient batch DLEQ proof. It’s essentially a single proof that covers all the returned values. This can be done by computing a proof over the sum of the points:
+DLEQ proofs are not particularly compact. Luckily, they can be optimized with something called an efficient batch DLEQ proof. It’s essentially a single proof that covers all the returned values. This can be done by computing a proof over a random linear combination of the points:
 
 Because the same `s` is used for every `T`, you can use the commutative property of multiplication again to help you.
 
@@ -143,7 +143,13 @@ Note the following:
 
 So the server can compute a single DLEQ that proves that the same s was used for each T:
 `DLEQ(b1T1+b2T2+b3T3:s(b1T1+b2T2+b3T3) == G: sG)`
-This is the same size as a single DLEQ proof.
+This is the same size as a single DLEQ proof. 
+
+In fact, as mentioned above, we take a random linear combination of these points without compromising the malleability requirement. In particular, we seed a Pseudorandom Number Generator (PRNG) using the output `z` of a hash computation over the common information in the signing phase (e.g. blinded/signed points). We then parse the output of `PRNG(z)` to be `c1,c2,c3`. We can then compute:
+	
+	DLEQ(c1b1T1+c2b2T2+c3b3T3:s(c1b1T1 + c2b2T2 + c3b3T3) == G: sG)
+
+Without using the random linear combinations the proof is insecure. 
 
 ## Scenario 7
 
@@ -156,14 +162,19 @@ This scenario is similar to the last one except that the server sends a batch DL
 	b1T1 ->
 	b2T2 ->
 	b3T3 ->
-			<- sbT1
-			<- sbT2
-			<- sbT3
-			<- DLEQ(b1T1+b2T2+b3T3:s(b1T1+b2T2+b3T3) == G: sG)
+			c1,c2,c3 = H(G,sG,b1T1,b2T2,b3T3,s(b1T1),s(b2T2),s(b3T3))
+			<- sb1T1
+			<- sb2T2
+			<- sb3T3
+			<- DLEQ(c1b1T1+c2b2T2+c3b3T3:s(c1b1T1+c2b2T2+c3b3T3) == G: sG)
 
-This DLEQ proof can be validated by computing `b1T1+b2T2+b3T3` and `sb1T1+sb2T2+sb3T3`.
+This DLEQ proof can be validated by recomputing `z = c1,c2,c3` and then `c1b1T1+c2b2T2+c3b3T3` and `sc1b1T1+sc2b2T2+sc3b3T3`.
 
 #### Redeem
 	t1, HMAC1(M) ->
 
 This is basically our scheme.
+
+## The scheme in detail
+
+We have published a detailed [specification](https://github.com/privacypass/challenge-bypass-extension/blob/master/PROTOCOL.md) of our scheme if you are interested in learning more. We also address some more possible attack avenues with working mitigations that are in use currently with respect to the Cloudflare implementation.
