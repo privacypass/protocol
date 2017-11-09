@@ -128,7 +128,7 @@ The client picks multiple values `t1, t2, … , tn` and multiple blinding factor
 Each DLEQ can be verified independently like in Scenario 4, the client is safe from tagging.
 
 #### Redeem
-	t1, HMAC1(M) ->
+	t1, HMAC1(sT, M) ->
 
 This lets the client do multiple redemptions.
 
@@ -171,7 +171,7 @@ This scenario is similar to the last one except that the server sends a batch DL
 This DLEQ proof can be validated by recomputing `z = c1,c2,c3` and then `c1b1T1+c2b2T2+c3b3T3` and `sc1b1T1+sc2b2T2+sc3b3T3`.
 
 #### Redeem
-	t1, HMAC1(M) ->
+	t1, HMAC1(sT, M) ->
 
 This is basically our scheme.
 
