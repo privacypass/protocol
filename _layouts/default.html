@@ -16,14 +16,15 @@
   <body>
     <div class="wrapper">
       <header>
-        <a href="{{ site.github.url }}"> <h1>{{ site.title | default: site.github.repository_name }}</h1> </a>
+        <a href="https://privacypass.github.io">          
+          <div style="position:relative;width:300px;height:50px">
+            <h1>{{ site.title | default: site.github.repository_name }}</h1>
+            <img src="{{ site.github.url }}/assets/pp.png" alt="Privacy Pass logo" style="position:absolute;top:0;left:185px;bottom:20px;margin:auto;width:50px;height:50px;">
+          </div>
+        </a>
         <p>{{ site.description | default: site.github.project_tagline }}</p>
 
-        <p>A privacy-enhancing protocol and browser extension by researchers from:</p>
-        <div style="position:relative;width:150px;height:90px">
-            <img src="{{ site.github.url }}/assets/rhul-logo.png" alt="RHUL logo" style="position:absolute;top:0;margin:auto;width:150px;height:75px;">
-            <img src="{{ site.github.url }}/assets/uow-logo.png" alt="UoW logo" style="position:relative;top:20px;left:150px;right:300px;margin:auto;width:150px;height:38px;">      
-        </div>
+        <p>A privacy-enhancing protocol and browser extension.</p>
         <br>
         <div>
           <ul>
