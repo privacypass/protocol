@@ -75,7 +75,7 @@ Instead of sending `t` and `sT` the client can send `t` and `HMAC(sT, M)` for a 
     	  <- sbT
 
 #### Redeem
-	t, HMAC(sT, M) ->
+	t, M, HMAC(sT, M) ->
 
 Since only the server knows s, it can compute `T = Hash(t)` and compute `sT` as `T` multiplied by `s` and verify the HMAC to validate that the client knew `sT`.
 
@@ -103,7 +103,7 @@ The server picks a generator point `G` and publishes `sG` somewhere where every 
 The client can then check to see that the server used the same `s`, since everyone knows `sG`.
 
 #### Redeem
-	t, HMAC(sT, M) ->
+	t, M, HMAC(sT, M) ->
 
 Just like in Scenario 4, since only the server knows s, it can compute `T = Hash(t)` and compute `sT` as `T` multiplied by `s` and verify the HMAC to validate that the client knew `sT`.
 
@@ -128,7 +128,7 @@ The client picks multiple values `t1, t2, … , tn` and multiple blinding factor
 Each DLEQ can be verified independently like in Scenario 4, the client is safe from tagging.
 
 #### Redeem
-	t1, HMAC1(sT, M) ->
+	t1, M, HMAC(sT1, M) ->
 
 This lets the client do multiple redemptions.
 
@@ -171,7 +171,7 @@ This scenario is similar to the last one except that the server sends a batch DL
 This DLEQ proof can be validated by recomputing `z = c1,c2,c3` and then `c1b1T1+c2b2T2+c3b3T3` and `sc1b1T1+sc2b2T2+sc3b3T3`.
 
 #### Redeem
-	t1, HMAC1(sT, M) ->
+	t1, M, HMAC(sT1, M) ->
 
 This is basically our scheme.
 
