@@ -121,9 +121,9 @@ The client picks multiple values `t1, t2, … , tn` and multiple blinding factor
 	b1T1 ->
 	b2T2 ->
 	b3T3 ->
-			<- sbT1, DLEQ(b1T1:sbT1 == G: sG)
-			<- sbT2, DLEQ(b2T2:sbT2 == G: sG)
-			<- sbT3, DLEQ(b3T3:sbT3 == G: sG)
+			<- sb1T1, DLEQ(b1T1:sb1T1 == G: sG)
+			<- sb2T2, DLEQ(b2T2:sb2T2 == G: sG)
+			<- sb3T3, DLEQ(b3T3:sb3T3 == G: sG)
 
 Each DLEQ can be verified independently like in Scenario 4, the client is safe from tagging.
 
