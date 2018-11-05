@@ -6,7 +6,7 @@ The concept of a blind signature has been around since David Chaum introduced [R
 
 To make the design decisions behind the development of the Privacy Pass protocol clear, we detail a set of scenarios each with flaws. In each scenario we address a flaw of the previous construction and show how to avoid it. By Scenario 7 we have something very close to our scheme. In these scenarios there are two actors, the client and the server.
 
-Additionally, see the [full description](https://github.com/privacypass/challenge-bypass-extension/blob/master/PROTOCOL.md) for more details.
+Additionally, see the [full description](https://github.com/privacypass/challenge-bypass-extension/blob/master/docs/PROTOCOL.md) for more details.
 
 ## Scenario 1
 
@@ -177,4 +177,4 @@ This is basically our scheme.
 
 ## The scheme in detail
 
-We have published a detailed [specification](https://github.com/privacypass/challenge-bypass-extension/blob/master/PROTOCOL.md) of our scheme if you are interested in learning more. We also address some more possible attack avenues with working mitigations that are in use currently with respect to the Cloudflare implementation.
+We have published a detailed [specification](https://github.com/privacypass/challenge-bypass-extension/blob/master/docs/PROTOCOL.md) of our scheme if you are interested in learning more. We also address some more possible attack avenues with working mitigations that are in use currently with respect to the Cloudflare implementation.
